@@ -4,8 +4,6 @@ import EditProfile from '3box-profile-edit-react';
 function Profile(props) {
   const [hideEdit, setHideEdit] = useState(false);
 
-  console.log(props);
-
   return (
     <div className='container'>
       <div style={{ margin: 'auto' }}>
