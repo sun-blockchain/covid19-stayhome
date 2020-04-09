@@ -3,36 +3,3 @@
   text-align: center;
   font-size: 2rem;
 }
-
-header ul {
-  display: inline-block;
-  width: 80vw !important;
-}
-
-@media screen and (max-width: 576px) {
-  header ul {
-    width: 70vw !important;
-  }
-}
-
-header .ant-avatar {
-  display: inline-block;
-  cursor: pointer;
-}
-
-footer span {
-  color: #ff2200;
-}
-
-footer div {
-  display: inline-block;
-  margin-left: 80vw;
-}
-
-footer div img {
-  margin-left: 10px;
-}
-
-a {
-  text-decoration: none !important;
-}
