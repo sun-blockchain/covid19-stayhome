@@ -1,12 +1,13 @@
-footer span {
+.footer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.footer span {
   color: #ff2200;
 }
 
-footer div {
-  display: inline-block;
-  margin-left: 80vw;
-}
-
-footer div img {
+.footer div img {
   margin-left: 10px;
 }
