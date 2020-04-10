@@ -1,25 +1,16 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
-import { Layout } from 'antd';
-import HeaderNav from '../../components/Header';
-import FooterNav from '../../components/Footer';
-import 'antd/dist/antd.css';
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import * as UI from '../../actions/UI';
 import './case.css';
 
-const { Header, Content, Footer } = Layout;
-
 function Case() {
-  const threebox = useSelector((state) => state.threebox);
+  const dispatch = useDispatch();
 
-  return (
-    <Layout style={{ height: '100vh' }}>
-      <HeaderNav selectKey='3' />
-      <Content className='site-layout' style={{ padding: '0 50px', marginTop: 64 }}>
-        <div className='site-layout-title'>Case</div>
-      </Content>
-      <FooterNav />
-    </Layout>
-  );
+  useEffect(() => {
+    dispatch(UI.updateMenuKey(3));
+  }, [dispatch]);
+
+  return <div className='site-layout-title'>Case</div>;
 }
 
 export default Case;

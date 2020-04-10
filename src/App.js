@@ -1,17 +1,21 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import * as actions from './actions';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import Home from './pages/Home';
-import LeaderBoard from './pages/Leaderboard';
-import Case from './pages/Case';
+import { BrowserRouter } from 'react-router-dom';
+import Router from './router';
+import HeaderNav from './components/Header';
+import FooterNav from './components/Footer';
+
+import { Layout } from 'antd';
+
+const { Header, Content, Footer } = Layout;
 
 function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
     const getAddress = () => {
-      window.addEventListener('load', async () => {
+      window.addEventListener('load', () => {
         dispatch(actions.getAddressFromMetaMask());
       });
     };
@@ -21,11 +25,17 @@ function App() {
   return (
     <div className='App'>
       <BrowserRouter>
-        <Switch>
-          <Route exact path='/' component={Home} />
-          <Route path='/leaderboard' component={LeaderBoard} />
-          <Route path='/corona-case' component={Case} />
-        </Switch>
+        <Layout style={{ height: '100vh' }}>
+          <Header>
+            <HeaderNav />
+          </Header>
+          <Content>
+            <Router />
+          </Content>
+          <Footer>
+            <FooterNav />
+          </Footer>
+        </Layout>
       </BrowserRouter>
     </div>
   );
