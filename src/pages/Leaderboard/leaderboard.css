@@ -1,13 +1,117 @@
 .site-layout-title {
   padding-top: 15px;
   text-align: center;
-  font-size: 2rem;
+  font-size: 1.6rem;
+  font-family: 'Overpass Mono',
 }
-
+@media only screen and (max-width: 500px) {
 main .site-layout-board {
-  width: 50vw;
-  height: 70vh;
-  background-color: lightblue;
+  width: 80vw;
+  background-color:black;
+  color: white;
   margin: auto;
   border-radius: 5%;
 }
+}
+@media only screen and (min-width: 500px) {
+main .site-layout-board {
+  width: 40vw;
+  background-color:black;
+  color: white;
+  margin: auto;
+  border-radius: 5%;
+}
+}
+.ant-card-head-title{
+  font-weight: 600;
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+  font-family: 'Oswald', system-ui;
+  color: white;
+  text-align: center
+}
+
+.c-list {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+.c-list_item {
+    padding: 0.5rem 0;
+}
+.u-text--small {
+    font-size: 0.8rem;
+}
+.u-text--medium {
+    color: var(--medium) !important;
+}
+.u-text--left {
+    text-align: left;
+}
+.u-text--right {
+    text-align: right;
+}
+.c-list_grid {
+    display: grid;
+    grid-template-columns: 10% 3fr 1fr;
+    grid-column-gap: 20px;
+}
+.c-media {
+    display: inline-flex;
+    -webkit-box-align: center;
+    align-items: center;
+}
+.c-media_content {
+    padding-left: 1.6rem;
+}
+.id {
+    color: blueviolet
+}
+.c-avatar {
+    display: inline-flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    width: 4rem;
+    height: 4rem;
+    box-shadow: inset 0px 0px 0px 1px currentColor;
+    border-radius: 50%;
+    background: var(--lightest);
+    color: var(--dark)
+}
+.u-text--dark {
+    color: var(--darkest) !important;
+}
+.u-bg--yellow {
+    background: var(--yellow) !important;
+}
+.c-list__item .c-flag {
+    margin-top: 0.8rem;
+}
+.c-flag{
+    display: inline-flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    background: var(--lightest);
+    color: var(--dark);
+    border-radius: 0.4rem;
+    margin: auto 0
+}
+.u-text--yellow {
+    color: var(--yellow) !important;
+}
+.u-text--teal {
+    color: var(--teal) !important;
+}
+.ant-card{
+    box-shadow: 0px 0px 0px 1px rgba(255, 255, 255, 0.12);
+}
+.u-bg--teal {
+    background: var(--teal) !important;
+}
+
