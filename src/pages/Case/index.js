@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import * as UI from '../../actions/UI';
 import './case.css';
@@ -13,7 +13,7 @@ function Case() {
   const [data, setData] = useState(null);
   const [searchText, setSearchText] = useState('');
   const [searchedColumn, setSearchedColumn] = useState('');
-  const [searchInput, setSearchInput] = useState('');
+  const refSearchInput = useRef('');
 
   const handleSearch = (selectedKeys, confirm, dataIndex) => {
     confirm();
@@ -30,9 +30,7 @@ function Case() {
     filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters }) => (
       <div style={{ padding: 8 }}>
         <Input
-          ref={(node) => {
-            setSearchInput(node);
-          }}
+          ref={refSearchInput}
           placeholder={`Search ${dataIndex}`}
           value={selectedKeys[0]}
           onChange={(e) => setSelectedKeys(e.target.value ? [e.target.value] : [])}
@@ -56,14 +54,18 @@ function Case() {
     filterIcon: (filtered) => (
       <SearchOutlined style={{ color: filtered ? '#1890ff' : undefined }} />
     ),
-    onFilter: (value, record) =>
-      record[dataIndex]
-        .toString()
-        .toLowerCase()
-        .includes(value.toLowerCase()),
+    onFilter: (value, record) => {
+      //if record[dataIndex] not null
+      if (record[dataIndex]) {
+        return record[dataIndex]
+          .toString()
+          .toLowerCase()
+          .includes(value.toLowerCase());
+      }
+    },
     onFilterDropdownVisibleChange: (visible) => {
       if (visible) {
-        setTimeout(() => searchInput.select());
+        setTimeout(() => refSearchInput.current.select());
       }
     },
     render: (text) =>
