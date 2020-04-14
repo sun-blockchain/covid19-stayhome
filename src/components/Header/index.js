@@ -10,7 +10,7 @@ function HeaderNav() {
   const UI = useSelector((state) => state.UI);
 
   return (
-    <div style={{ position: 'fixed', zIndex: 1, width: '100%' }}>
+    <div style={{ width: '100%' }}>
       {UI.MenuKey ? (
         <Menu theme='dark' mode='horizontal' defaultSelectedKeys={[UI.MenuKey]}>
           <Menu.Item key='1'>
