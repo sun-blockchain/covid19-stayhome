@@ -1,10 +1,10 @@
-import * as actions from '../actions';
+import * as actions from 'actions';
 
 const initialState = {
   box: null,
   space: null,
   account: null,
-  threeBoxProfile: null,
+  threeBoxProfile: null
 };
 
 const ThreeBoxReducer = (state = initialState, action) => {
@@ -15,7 +15,7 @@ const ThreeBoxReducer = (state = initialState, action) => {
         box: action.box,
         space: action.space,
         account: action.account,
-        threeBoxProfile: action.threeBoxProfile,
+        threeBoxProfile: action.threeBoxProfile
       };
     default:
       return state;
