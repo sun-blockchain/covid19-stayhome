@@ -25,7 +25,7 @@ function App() {
   return (
     <div className='App'>
       <BrowserRouter>
-        <Layout style={{ height: '100vh' }}>
+        <Layout>
           <Header>
             <HeaderNav />
           </Header>
@@ -37,7 +37,7 @@ function App() {
           </Footer>
         </Layout>
       </BrowserRouter>
-    </div>
+    </div >
   );
 }
 
