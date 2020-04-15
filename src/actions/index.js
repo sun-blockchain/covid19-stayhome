@@ -21,7 +21,6 @@ export const getAddressFromMetaMask = () => async (dispatch) => {
     const box = await Box.openBox(account, window.ethereum);
 
     const space = await box.openSpace('stay-home');
-
     // Sync 3Box
     await box.syncDone;
     dispatch({

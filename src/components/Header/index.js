@@ -24,10 +24,13 @@ function HeaderNav() {
           </Menu.Item>
         </Menu>
       ) : (
-        <></>
-      )}
+          <></>
+        )}
+      <Link to='/profile'>
+        <Avatar style={{ backgroundColor: '#87d068' }} icon={<UserOutlined />} >
+        </Avatar>
+      </Link>
 
-      <Avatar style={{ backgroundColor: '#87d068' }} icon={<UserOutlined />} />
     </div>
   );
 }
