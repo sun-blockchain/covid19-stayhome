@@ -7,6 +7,7 @@ import HeaderNav from './components/Header';
 import FooterNav from './components/Footer';
 
 import { Layout } from 'antd';
+import './App.css';
 
 const { Header, Content, Footer } = Layout;
 
@@ -37,7 +38,7 @@ function App() {
           </Footer>
         </Layout>
       </BrowserRouter>
-    </div >
+    </div>
   );
 }
 

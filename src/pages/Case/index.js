@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useDispatch } from 'react-redux';
-import * as UI from '../../actions/UI';
+import * as UI from 'actions/UI';
 import './case.css';
 import Papa from 'papaparse';
 import request from 'request';
