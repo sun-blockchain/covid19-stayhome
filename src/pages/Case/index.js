@@ -83,6 +83,13 @@ function Case() {
 
   const columns = [
     {
+      title: 'Village',
+      dataIndex: 'Admin2',
+      key: 'Admin2',
+      width: '20%',
+      ...getColumnSearchProps('Admin2')
+    },
+    {
       title: 'Province_State',
       dataIndex: 'Province_State',
       key: 'Province_State',
