@@ -34,3 +34,43 @@ export const getAddressFromMetaMask = () => async (dispatch) => {
     alert('Account not found');
   }
 };
+
+export const setPublicSpace = (result) => async (dispatch, getState) => {
+  const state = getState();
+  const account = state.threebox.account;
+  const space = state.threebox.space;
+
+  await space.public.set(account, result).catch((e) => {
+    console.log(e);
+  });
+
+}
+
+
+export const GET_ALL_PUBLIC_SPACE = 'GET_ALL_PUBLIC_SPACE';
+export const getAllPublicSpace = () => async (dispatch, getState) => {
+  const state = getState();
+  const space = state.threebox.space;
+  let leaderboard = await space.public.all().catch((e) => {
+    console.log(e);
+  });
+  dispatch({
+    type: GET_ALL_PUBLIC_SPACE,
+    leaderboard: leaderboard
+  })
+
+}
+
+export const GET_PUBLIC_SPACE = 'GET_PUBLIC_SPACE';
+export const getPublicSpace = () => async (dispatch, getState) => {
+  const state = getState();
+  const account = state.threebox.account;
+  const space = state.threebox.space;
+  let myResult = await space.public.get(account).catch((e) => {
+    console.log(e);
+  });
+  dispatch({
+    type: GET_PUBLIC_SPACE,
+    myResult: myResult
+  })
+}
