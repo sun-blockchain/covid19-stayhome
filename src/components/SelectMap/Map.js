@@ -3,10 +3,12 @@ import React, { useState, useEffect, useRef } from 'react';
 export default function Map({
   options,
   onMount,
-  showMakers,
-  setShowMakers,
-  makerIndex,
-  setMakerIndex,
+  showMarkers,
+  setShowMarkers,
+  markerIndex,
+  setMarkerIndex,
+  markerNumber,
+  setMarkerNumber,
   yourLocaltion
 }) {
   const ref = useRef();
@@ -27,7 +29,16 @@ export default function Map({
   }, [options]);
 
   if (map && typeof onMount === `function`)
-    onMount(map, showMakers, setShowMakers, makerIndex, setMakerIndex, yourLocaltion);
+    onMount(
+      map,
+      showMarkers,
+      setShowMarkers,
+      markerIndex,
+      setMarkerIndex,
+      markerNumber,
+      setMarkerNumber,
+      yourLocaltion
+    );
 
   return <div style={{ height: `60vh`, margin: `1em 0`, borderRadius: `0.5em` }} {...{ ref }} />;
 }
