@@ -114,3 +114,6 @@
 .u-bg--teal {
   background: var(--teal) !important;
 }
+h3 {
+  color: teal !important;
+}
