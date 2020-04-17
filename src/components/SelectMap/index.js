@@ -5,13 +5,22 @@ import useGeolocation from 'utils/useGeolocation';
 
 import './SelectMap.css';
 
-function addMarkers(map, showMakers, setShowMakers, makerIndex, setMakerIndex, yorLocation) {
-  showMakers.forEach((showMaker, index) => {
-    if (showMaker.lat && showMaker.lng) {
+function addMarkers(
+  map,
+  showMarkers,
+  setShowMarkers,
+  markerIndex,
+  setMarkerIndex,
+  markerNumber,
+  setMarkerNumber,
+  yorLocation
+) {
+  showMarkers.forEach((showMarker) => {
+    if (showMarker.lat && showMarker.lng) {
       const marker = new window.google.maps.Marker({
         map,
-        position: { lat: showMaker.lat, lng: showMaker.lng },
-        label: `${index + 1}`
+        position: { lat: showMarker.lat, lng: showMarker.lng },
+        label: `${showMarker.index}`
       });
 
       // if wanna click in maker
@@ -28,11 +37,14 @@ function addMarkers(map, showMakers, setShowMakers, makerIndex, setMakerIndex, y
   });
 
   map.addListener(`click`, (mapsMouseEvent) => {
-    setShowMakers((showMakers) => [
-      ...showMakers,
-      { lat: mapsMouseEvent.latLng.lat(), lng: mapsMouseEvent.latLng.lng() }
-    ]);
-    setMakerIndex((makerIndex) => [...makerIndex, showMakers.length + 1]);
+    if (showMarkers.length < 4) {
+      setShowMarkers((showMarkers) => [
+        ...showMarkers,
+        { lat: mapsMouseEvent.latLng.lat(), lng: mapsMouseEvent.latLng.lng(), index: markerNumber }
+      ]);
+      setMarkerIndex((markerIndex) => [...markerIndex, markerNumber]);
+      setMarkerNumber(markerNumber + 1);
+    }
   });
 }
 
@@ -46,12 +58,26 @@ function SelectMap() {
 
   const [visible, setVisible] = useState(false);
   const [yourLocaltion, setYourLocaltion] = useState(null);
-  const [showMakers, setShowMakers] = useState([]);
-  const [makerIndex, setMakerIndex] = useState([]);
+  const [showMarkers, setShowMarkers] = useState([]);
+  const [markerIndex, setMarkerIndex] = useState([]);
+  const [markerNumber, setMarkerNumber] = useState(1);
 
   useEffect(() => {
     setYourLocaltion({ lat: geolocation.latitude, lng: geolocation.longitude });
   }, [geolocation]);
+
+  const removeMarker = (value) => {
+    // remove in selector
+    let filteredItems = markerIndex.filter((item) => item !== value);
+    setMarkerIndex(filteredItems);
+
+    // remove point in map
+    filteredItems = showMarkers.filter((item) => item.index !== value);
+    setShowMarkers(filteredItems);
+  };
+  const submitZone = () => {
+    setVisible(false);
+  };
 
   return (
     <div>
@@ -61,31 +87,35 @@ function SelectMap() {
       <Modal
         title='Basic Modal'
         visible={visible}
-        onOk={() => setVisible(false)}
+        onOk={() => submitZone()}
         onCancel={() => setVisible(false)}
       >
         {/* if geolocation error by your not allow */}
         {!geolocation.error ? (
           <div>
-            <p>Select your area</p>
+            <p>You must select 4 point around you</p>
             <Map
               onMount={addMarkers}
               options={{
                 center: { lat: geolocation.latitude, lng: geolocation.longitude },
                 zoom: 19
               }}
-              showMakers={showMakers}
-              setShowMakers={setShowMakers}
-              setMakerIndex={setMakerIndex}
-              makerIndex={makerIndex}
+              showMarkers={showMarkers}
+              setShowMarkers={setShowMarkers}
+              markerIndex={markerIndex}
+              setMarkerIndex={setMarkerIndex}
+              markerNumber={markerNumber}
+              setMarkerNumber={setMarkerNumber}
               yourLocaltion={yourLocaltion}
             />
             <p>Your selection</p>
             <Select
               mode='multiple'
               style={{ width: '100%' }}
-              placeholder='Please select'
-              value={makerIndex}
+              placeholder='Your point'
+              open={false}
+              value={markerIndex}
+              onDeselect={removeMarker}
             />
           </div>
         ) : (
