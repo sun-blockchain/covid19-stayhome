@@ -3,3 +3,25 @@
   text-align: center;
   font-size: 2rem;
 }
+
+.tweet {
+  margin-top: 15px !important;
+  margin-bottom: 10px !important;
+  background: #26a6d1;
+  width: 100px;
+  height: 35px;
+  margin: auto;
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.tweet:hover {
+  background-color: #1b95e0;
+}
+
+.tweet a {
+  vertical-align: top;
+  font-size: 14px;
+  color: #fff;
+}
