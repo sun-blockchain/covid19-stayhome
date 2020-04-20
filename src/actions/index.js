@@ -108,8 +108,10 @@ export const getPrivateSpace = () => async (dispatch, getState) => {
   let location = await space.private.get(account).catch((e) => {
     console.log(e);
   });
+  console.log(JSON.parse(location));
+
   dispatch({
     type: GET_PRIVATE_SPACE,
-    location: location
+    location: JSON.parse(location)
   });
 };
