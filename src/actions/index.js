@@ -46,6 +46,16 @@ export const setPublicSpace = (result) => async (dispatch, getState) => {
 
 }
 
+export const setPrivateSpace = (result) => async (dispatch, getState) => {
+  const state = getState();
+  const account = state.threebox.account;
+  const space = state.threebox.space;
+
+  await space.private.set(account, result).catch((e) => {
+    console.log(e);
+  });
+
+}
 
 export const GET_ALL_PUBLIC_SPACE = 'GET_ALL_PUBLIC_SPACE';
 export const getAllPublicSpace = () => async (dispatch, getState) => {
@@ -72,5 +82,19 @@ export const getPublicSpace = () => async (dispatch, getState) => {
   dispatch({
     type: GET_PUBLIC_SPACE,
     myResult: myResult
+  })
+}
+
+export const GET_PRIVATE_SPACE = 'GET_PRIVATE_SPACE';
+export const getPrivateSpace = () => async (dispatch, getState) => {
+  const state = getState();
+  const account = state.threebox.account;
+  const space = state.threebox.space;
+  let location = await space.private.get(account).catch((e) => {
+    console.log(e);
+  });
+  dispatch({
+    type: GET_PRIVATE_SPACE,
+    location: location
   })
 }

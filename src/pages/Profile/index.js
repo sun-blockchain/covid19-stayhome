@@ -3,9 +3,11 @@ import EditProfile from '3box-profile-edit-react';
 import { useSelector } from 'react-redux';
 import { BounceLoader } from 'react-spinners';
 import './index.css';
+import { Button, Card } from 'antd';
+import MyResult from './result.js';
 
 function Profile() {
-  const [hideEdit, setHideEdit] = useState(false);
+  const [hideEdit, setHideEdit] = useState(true);
   const threebox = useSelector((state) => state.threebox);
 
   if (!threebox.space) {
@@ -19,28 +21,45 @@ function Profile() {
   return (
     <div className='container'>
       <div className='profile'>
-        <h1 style={{ textAlign: 'center' }}>
-          Edit your 3Box Profile here
-          <span role='img' aria-label='fingle'>
-            👇
-          </span>
-        </h1>
-        {!hideEdit && (
-          <EditProfile
-            box={threebox.box}
-            space={threebox.space}
-            currentUserAddr={threebox.account}
-            currentUser3BoxProfile={threebox.threeBoxProfile}
-            redirectFn={() => setHideEdit(true)}
-          />
-        )}
         {hideEdit && (
+          <div className='card'>
+            <Card>
+              <MyResult
+                name={threebox.threeBoxProfile.name}
+                src={
+                  'https://gateway.ipfs.io/ipfs/' +
+                  threebox.threeBoxProfile.image[0].contentUrl['/']
+                }
+                description={threebox.threeBoxProfile.description}
+                emoji={threebox.threeBoxProfile.emoji}
+                address={threebox.account}
+              />
+              <Button
+                className=' mt-3'
+                shape='round'
+                type='primary'
+                onClick={() => setHideEdit(false)}
+              >
+                Edit
+              </Button>
+            </Card>
+          </div>
+        )}
+        {!hideEdit && (
           <div>
-            <h2>{threebox.threeBoxProfile.image[0].contentUrl['/']}</h2>
-            <image src={threebox.threeBoxProfile.image[0].contentUrl['/']} alt='Three box image' />
-            <p>{threebox.threeBoxProfile.description}</p>
-            <p>{threebox.threeBoxProfile.emoji}</p>
-            <button onClick={() => setHideEdit(false)}>edit</button>
+            <h1 style={{ textAlign: 'center' }}>
+              Edit your 3Box Profile here
+              <span role='img' aria-label='fingle'>
+                👇
+              </span>
+            </h1>
+            <EditProfile
+              box={threebox.box}
+              space={threebox.space}
+              currentUserAddr={threebox.account}
+              currentUser3BoxProfile={threebox.threeBoxProfile}
+              redirectFn={() => setHideEdit(true)}
+            />
           </div>
         )}
       </div>

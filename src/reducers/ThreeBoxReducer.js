@@ -6,7 +6,8 @@ const initialState = {
   account: null,
   threeBoxProfile: null,
   leaderboard: null,
-  myResult: null
+  myResult: null,
+  location: null,
 };
 
 const ThreeBoxReducer = (state = initialState, action) => {
@@ -19,7 +20,8 @@ const ThreeBoxReducer = (state = initialState, action) => {
         account: action.account,
         threeBoxProfile: action.threeBoxProfile,
         leaderboard: action.leaderboard,
-        myResult: action.myResult
+        myResult: action.myResult,
+        location: action.location
       };
     default:
       return state;

@@ -1,10 +1,29 @@
 .profile {
-    margin-right: auto;
-    margin-left: auto;
-    margin-top: 0px;
-    margin-bottom: 0px;
-    padding-bottom: 10px
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: 30px;
+  margin-bottom: 0px;
+  padding-bottom: 10px;
 }
-.edit_form{
-    margin: auto;
+.edit_form {
+  margin: auto;
+}
+.card-body {
+  margin: auto;
+  text-align: center;
+}
+.avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: var(--lightest);
+}
+
+h1 {
+  color: teal !important;
+}
+
+.card {
+  margin: auto;
+  width: 50vw;
 }
