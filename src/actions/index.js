@@ -21,6 +21,8 @@ export const getAddressFromMetaMask = () => async (dispatch) => {
     const box = await Box.openBox(account, window.ethereum);
 
     const space = await box.openSpace('stay-home');
+    console.log(box);
+
     // Sync 3Box
     await box.syncDone;
     dispatch({
@@ -43,8 +45,7 @@ export const setPublicSpace = (result) => async (dispatch, getState) => {
   await space.public.set(account, result).catch((e) => {
     console.log(e);
   });
-
-}
+};
 
 export const setPrivateSpace = (result) => async (dispatch, getState) => {
   const state = getState();
@@ -54,8 +55,7 @@ export const setPrivateSpace = (result) => async (dispatch, getState) => {
   await space.private.set(account, result).catch((e) => {
     console.log(e);
   });
-
-}
+};
 
 export const GET_ALL_PUBLIC_SPACE = 'GET_ALL_PUBLIC_SPACE';
 export const getAllPublicSpace = () => async (dispatch, getState) => {
@@ -67,9 +67,8 @@ export const getAllPublicSpace = () => async (dispatch, getState) => {
   dispatch({
     type: GET_ALL_PUBLIC_SPACE,
     leaderboard: leaderboard
-  })
-
-}
+  });
+};
 
 export const GET_PUBLIC_SPACE = 'GET_PUBLIC_SPACE';
 export const getPublicSpace = () => async (dispatch, getState) => {
@@ -82,8 +81,8 @@ export const getPublicSpace = () => async (dispatch, getState) => {
   dispatch({
     type: GET_PUBLIC_SPACE,
     myResult: myResult
-  })
-}
+  });
+};
 
 export const GET_PRIVATE_SPACE = 'GET_PRIVATE_SPACE';
 export const getPrivateSpace = () => async (dispatch, getState) => {
@@ -93,8 +92,10 @@ export const getPrivateSpace = () => async (dispatch, getState) => {
   let location = await space.private.get(account).catch((e) => {
     console.log(e);
   });
+  console.log(JSON.parse(location));
+
   dispatch({
     type: GET_PRIVATE_SPACE,
-    location: location
-  })
-}
+    location: JSON.parse(location)
+  });
+};

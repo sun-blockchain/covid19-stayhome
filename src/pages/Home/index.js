@@ -8,7 +8,6 @@ import './home.css';
 function Home() {
   const dispatch = useDispatch();
   let days = 20;
-
   useEffect(() => {
     dispatch(UI.updateMenuKey(1));
   }, [dispatch]);
