@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import * as actions from './actions';
 import { BrowserRouter } from 'react-router-dom';
 import Router from './router';
@@ -13,6 +13,7 @@ const { Header, Content, Footer } = Layout;
 
 function App() {
   const dispatch = useDispatch();
+  const threebox = useSelector((state) => state.threebox);
 
   useEffect(() => {
     const getAddress = () => {
@@ -22,6 +23,13 @@ function App() {
     };
     getAddress();
   });
+
+  useEffect(() => {
+    // trigger if user Location change
+    if (threebox.zone && threebox.userLocation) {
+      dispatch(actions.checkIsOutZone());
+    }
+  }, [threebox.userLocation, threebox.zone, dispatch]);
 
   return (
     <div className='App'>

@@ -67,8 +67,12 @@ function SelectMap() {
   const [markerNumber, setMarkerNumber] = useState(1);
 
   useEffect(() => {
-    setYourLocaltion({ lat: geolocation.latitude, lng: geolocation.longitude });
-  }, [geolocation]);
+    if (geolocation.latitude && geolocation.longitude) {
+      setYourLocaltion({ lat: geolocation.latitude, lng: geolocation.longitude });
+      dispatch(actions.setUserLocation({ lat: geolocation.latitude, lng: geolocation.longitude }));
+    }
+    if (threebox.zone) setShowMarkers(threebox.zone);
+  }, [geolocation, threebox.zone, dispatch]);
 
   const removeMarker = (value) => {
     // remove in selector
@@ -84,18 +88,10 @@ function SelectMap() {
     setVisible(false);
   };
 
-  const getZone = () => {
-    if (threebox.space) {
-      dispatch(actions.getPrivateSpace());
-    }
-  };
   return (
     <div>
       <Button type='primary' onClick={() => setVisible(true)}>
         Note your position
-      </Button>
-      <Button type='primary' onClick={() => getZone()}>
-        Get result
       </Button>
       <p>{threebox.location}</p>
       <Modal

@@ -6,9 +6,12 @@ const initialState = {
   account: null,
   threeBoxProfile: null,
   leaderboard: null,
-  myResult: null,
-  location: null,
-  error: null
+  error: null,
+  point: null,
+  zone: null,
+  userLocation: null,
+  startTime: null,
+  lastCheck: null
 };
 
 const ThreeBoxReducer = (state = initialState, action) => {
@@ -21,14 +24,30 @@ const ThreeBoxReducer = (state = initialState, action) => {
         account: action.account,
         threeBoxProfile: action.threeBoxProfile,
         leaderboard: action.leaderboard,
-        myResult: action.myResult,
-        location: action.location,
         error: action.error
       };
     case actions.THREE_BOX_NOT_CONNECT:
       return {
         ...state,
-        error: action.error
+        error: action.error,
+        leaderboard: action.leaderboard
+      };
+    case actions.GET_PRIVATE_SPACE:
+      return {
+        ...state,
+        zone: action.zone
+      };
+    case actions.GET_PUBLIC_SPACE:
+      return {
+        ...state,
+        startTime: action.startTime,
+        point: action.point,
+        lastCheck: action.lastCheck
+      };
+    case actions.USER_LOCATION:
+      return {
+        ...state,
+        userLocation: action.userLocation
       };
     default:
       return state;

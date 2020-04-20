@@ -5,7 +5,7 @@ const isOutZone = (zone, location) => {
   location.lat = parseFloat(location.lat);
   location.lng = parseFloat(location.lng);
 
-  zone.map((point) => {
+  zone.forEach((point) => {
     // doi ve float
     point.lat = parseFloat(point.lat);
     point.lng = parseFloat(point.lng);
@@ -20,7 +20,7 @@ const isOutZone = (zone, location) => {
 
   var R = 0;
 
-  zone.map((point) => {
+  zone.forEach((point) => {
     // công thức tính khoảng cách giữa 2 điểm tọa độ
     let distance = Math.sqrt(
       Math.pow(point.lat - midpoint.lat, 2) + Math.pow(point.lng - midpoint.lng, 2)
@@ -37,18 +37,4 @@ const isOutZone = (zone, location) => {
   else return 0;
 };
 
-// Test zone
-const zone = [
-  { lat: '21.304860168146377', lng: '105.61603656197127' },
-  { lat: '21.30500760364166', lng: '105.61615726137694' },
-  { lat: '21.30508756859416', lng: '105.61595341349181' },
-  { lat: '21.30495762552424', lng: '105.61581662083205' }
-];
-
-// test location
-const location = {
-  lat: '21.305040089408855',
-  lng: '105.61626991415557'
-};
-
-console.log(isOutZone(zone, location));
+export default isOutZone;
