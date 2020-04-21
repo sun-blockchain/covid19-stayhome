@@ -5,7 +5,10 @@ header ul {
 
 @media screen and (max-width: 576px) {
   header ul {
-    width: 70vw !important;
+    width: 50px !important;
+  }
+  .ant-menu-submenu-popup > .ant-menu {
+    background-color: black !important;
   }
 }
 
@@ -16,4 +19,7 @@ header .ant-avatar {
 
 a {
   text-decoration: none !important;
+}
+.status {
+  margin-left: 10px;
 }
