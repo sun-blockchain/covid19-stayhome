@@ -4,12 +4,24 @@ import { useSelector } from 'react-redux';
 import { BounceLoader } from 'react-spinners';
 import './index.css';
 import { Button, Card } from 'antd';
+import ErrorAlert from 'components/Alert/errorAlert';
 import MyResult from './result.js';
 
 function Profile() {
   const [hideEdit, setHideEdit] = useState(true);
   const threebox = useSelector((state) => state.threebox);
-
+  if (threebox.error) {
+    return (
+      <div>
+        <ErrorAlert msg={threebox.error} />
+        <div style={{ textAlign: 'center' }}>
+          <Button type='primary' onClick={() => window.location.reload()}>
+            Reload
+          </Button>
+        </div>
+      </div>
+    );
+  }
   if (!threebox.space) {
     return (
       <div style={{ width: '60px', margin: 'auto' }}>
