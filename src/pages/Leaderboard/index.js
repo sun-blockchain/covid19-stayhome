@@ -5,7 +5,8 @@ import * as actions from 'actions/index';
 import './leaderboard.css';
 import MyResult from '../Profile/result';
 import { BounceLoader } from 'react-spinners';
-import { Card } from 'antd';
+import { Card, Button } from 'antd';
+import ErrorAlert from 'components/Alert/errorAlert';
 function LeaderBoard() {
   const dispatch = useDispatch();
   const threebox = useSelector((state) => state.threebox);
@@ -41,6 +42,18 @@ function LeaderBoard() {
       result: '60'
     }
   ];
+  if (threebox.error) {
+    return (
+      <div>
+        <ErrorAlert msg={threebox.error} />
+        <div style={{ textAlign: 'center' }}>
+          <Button type='primary' onClick={() => window.location.reload()}>
+            Reload
+          </Button>
+        </div>
+      </div>
+    );
+  }
   if (!threebox.space) {
     return (
       <div style={{ width: '60px', margin: 'auto' }}>

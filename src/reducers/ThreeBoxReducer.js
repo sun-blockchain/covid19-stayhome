@@ -8,6 +8,7 @@ const initialState = {
   leaderboard: null,
   myResult: null,
   location: null,
+  error: null
 };
 
 const ThreeBoxReducer = (state = initialState, action) => {
@@ -21,7 +22,13 @@ const ThreeBoxReducer = (state = initialState, action) => {
         threeBoxProfile: action.threeBoxProfile,
         leaderboard: action.leaderboard,
         myResult: action.myResult,
-        location: action.location
+        location: action.location,
+        error: action.error
+      };
+    case actions.THREE_BOX_NOT_CONNECT:
+      return {
+        ...state,
+        error: action.error
       };
     default:
       return state;
