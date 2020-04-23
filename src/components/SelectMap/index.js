@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Modal, Button, Select } from 'antd';
 import Map from './Map';
 import useGeolocation from 'utils/useGeolocation';
+import { useDispatch, useSelector } from 'react-redux';
+import * as actions from 'actions/index';
 
 import './SelectMap.css';
 
@@ -49,6 +51,8 @@ function addMarkers(
 }
 
 function SelectMap() {
+  const threebox = useSelector((state) => state.threebox);
+  const dispatch = useDispatch();
   // get your Geolocation
   const geolocation = useGeolocation({
     enableHighAccuracy: true,
@@ -63,8 +67,12 @@ function SelectMap() {
   const [markerNumber, setMarkerNumber] = useState(1);
 
   useEffect(() => {
-    setYourLocaltion({ lat: geolocation.latitude, lng: geolocation.longitude });
-  }, [geolocation]);
+    if (geolocation.latitude && geolocation.longitude) {
+      setYourLocaltion({ lat: geolocation.latitude, lng: geolocation.longitude });
+      dispatch(actions.setUserLocation({ lat: geolocation.latitude, lng: geolocation.longitude }));
+    }
+    if (threebox.zone) setShowMarkers(threebox.zone);
+  }, [geolocation, threebox.zone, dispatch]);
 
   const removeMarker = (value) => {
     // remove in selector
@@ -76,6 +84,7 @@ function SelectMap() {
     setShowMarkers(filteredItems);
   };
   const submitZone = () => {
+    if (threebox.space) dispatch(actions.setPrivateSpace(JSON.stringify(showMarkers)));
     setVisible(false);
   };
 
@@ -84,6 +93,7 @@ function SelectMap() {
       <Button type='primary' onClick={() => setVisible(true)}>
         Note your position
       </Button>
+      <p>{threebox.location}</p>
       <Modal
         title='Basic Modal'
         visible={visible}

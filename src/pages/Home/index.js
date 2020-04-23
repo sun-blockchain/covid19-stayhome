@@ -6,6 +6,7 @@ import * as actions from 'actions/index';
 import './home.css';
 import { Button } from 'antd';
 import ErrorAlert from 'components/Alert/errorAlert';
+
 function Home() {
   const threebox = useSelector((state) => state.threebox);
   const dispatch = useDispatch();
@@ -47,6 +48,9 @@ ${process.env.REACT_APP_HOME_URL}
         </a>
       </div>
       <SelectMap />
+      <div>Your point {threebox.point}</div>
+      <div>Your start time {threebox.startTime}</div>
+      <div>Your last check {threebox.lastCheck}</div>
     </div>
   );
 }

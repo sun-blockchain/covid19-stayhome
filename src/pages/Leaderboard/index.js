@@ -14,7 +14,7 @@ function LeaderBoard() {
   useEffect(() => {
     dispatch(UI.updateMenuKey(2));
     if (threebox.space) dispatch(actions.getAllPublicSpace());
-  }, [dispatch]);
+  }, [dispatch, threebox.space]);
 
   const data = [
     {
