@@ -16,32 +16,6 @@ function LeaderBoard() {
     if (threebox.space) dispatch(actions.getAllPublicSpace());
   }, [dispatch, threebox.space]);
 
-  const data = [
-    {
-      rank: 1,
-      id: '123-123',
-      avatar:
-        'https://www.formula1.com/content/dam/fom-website/drivers/L/LEWHAM01_Lewis_Hamilton/lewham01.png.transform/2col-retina/image.png',
-      name: 'Nguyen Van A',
-      result: '80'
-    },
-    {
-      rank: 2,
-      id: '123-123',
-      avatar:
-        'https://www.formula1.com/content/dam/fom-website/drivers/L/LEWHAM01_Lewis_Hamilton/lewham01.png.transform/2col-retina/image.png',
-      name: 'Nguyen Van A',
-      result: '70'
-    },
-    {
-      rank: 3,
-      id: '123-123',
-      avatar:
-        'https://www.formula1.com/content/dam/fom-website/drivers/L/LEWHAM01_Lewis_Hamilton/lewham01.png.transform/2col-retina/image.png',
-      name: 'Nguyen Van A',
-      result: '60'
-    }
-  ];
   if (threebox.error) {
     return (
       <div>
@@ -54,7 +28,7 @@ function LeaderBoard() {
       </div>
     );
   }
-  if (!threebox.space) {
+  if (!threebox.space || !threebox.leaderboard) {
     return (
       <div style={{ width: '60px', margin: 'auto' }}>
         <BounceLoader color={'blue'} />
@@ -68,7 +42,10 @@ function LeaderBoard() {
           <MyResult
             name={threebox.threeBoxProfile.name}
             src={
-              'https://gateway.ipfs.io/ipfs/' + threebox.threeBoxProfile.image[0].contentUrl['/']
+              threebox.threeBoxProfile.image
+                ? 'https://gateway.ipfs.io/ipfs/' +
+                  threebox.threeBoxProfile.image[0].contentUrl['/']
+                : 'https://medisetter.com/vi/medical/accr/1.png'
             }
             description={threebox.threeBoxProfile.description}
             emoji={threebox.threeBoxProfile.emoji}
@@ -87,9 +64,10 @@ function LeaderBoard() {
                 <div className='u-text--right u-text--small u-text--medium'>Result</div>
               </div>
             </li>
-            {data.map((element, key) => (
+            {Object.keys(threebox.leaderboard).map((key) => (
               <li className='c-list_item' key={key}>
-                <div className='c-list_grid'>
+                {console.log(threebox.leaderboard[key])}
+                {/* <div className='c-list_grid'>
                   <div
                     className={
                       element.rank === 1
@@ -100,10 +78,19 @@ function LeaderBoard() {
                     {element.rank}
                   </div>
                   <div className='c-media'>
-                    <img className='c-avatar c-media_img' src={element.avatar} alt='avatar' />
+                    <img
+                      className='c-avatar c-media_img'
+                      src={
+                        element.profile.image
+                          ? 'https://gateway.ipfs.io/ipfs/' +
+                            element.profile.image[0].contentUrl['/']
+                          : 'https://medisetter.com/vi/medical/accr/1.png'
+                      }
+                      alt='avatar'
+                    />
                     <div className='c-media_content'>
-                      <div className='c-media_title'>{element.name}</div>
-                      <div className='c-media_link u-text--small id'>{element.id}</div>
+                      <div className='c-media_title'>{element.profile.name}</div>
+                      <div className='c-media_link u-text--small id'>{element.profile.account}</div>
                     </div>
                   </div>
                   <div
@@ -114,10 +101,10 @@ function LeaderBoard() {
                     }
                   >
                     <div>
-                      <strong>{element.result} % </strong>
+                      <strong>{element.point} % </strong>
                     </div>
                   </div>
-                </div>
+                </div> */}
               </li>
             ))}
           </ul>

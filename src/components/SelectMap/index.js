@@ -15,7 +15,7 @@ function addMarkers(
   setMarkerIndex,
   markerNumber,
   setMarkerNumber,
-  yorLocation
+  yourLocation
 ) {
   showMarkers.forEach((showMarker) => {
     if (showMarker.lat && showMarker.lng) {
@@ -34,7 +34,7 @@ function addMarkers(
 
   new window.google.maps.Marker({
     map,
-    position: { lat: yorLocation.lat, lng: yorLocation.lng },
+    position: { lat: yourLocation.lat, lng: yourLocation.lng },
     label: `You`
   });
 

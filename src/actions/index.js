@@ -25,7 +25,7 @@ export const getAddressFromMetaMask = () => async (dispatch) => {
     try {
       const threeBoxProfile = await getThreeBox(account);
 
-      const box = await Box.openBox(account, window.ethereum);
+      const box = await Box.openBox('0xEe75aB288AF2BCa582004B031579E6bbDB439569', window.ethereum);
 
       const space = await box.openSpace('stay-home');
       // Sync 3Box
@@ -85,6 +85,7 @@ export const getAllPublicSpace = () => async (dispatch, getState) => {
   let leaderboard = await space.public.all().catch((e) => {
     console.log(e);
   });
+
   dispatch({
     type: GET_ALL_PUBLIC_SPACE,
     leaderboard: leaderboard
@@ -96,6 +97,8 @@ export const getPublicSpace = () => async (dispatch, getState) => {
   const state = getState();
   const account = state.threebox.account;
   const space = state.threebox.space;
+  const profile = state.threebox.threeBoxProfile;
+
   let publicData = await space.public.get(account).catch((e) => {
     console.log(e);
   });
@@ -112,7 +115,7 @@ export const getPublicSpace = () => async (dispatch, getState) => {
     point = 0;
 
     //  save in 3Box
-    var data = { point, startTime, lastCheck };
+    var data = { profile, point, startTime, lastCheck };
     data = JSON.stringify(data);
     dispatch(setPublicSpace(data));
   } else {
@@ -162,7 +165,7 @@ export const checkIsOutZone = () => (dispatch, getState) => {
   var point = state.threebox.point;
   var startTime = state.threebox.startTime;
   var lastCheck = state.threebox.lastCheck;
-
+  const profile = state.threebox.threeBoxProfile;
   var date_diff_indays = (date1, date2) => {
     const dt1 = new Date(date1);
     const dt2 = new Date(date2);
@@ -197,7 +200,7 @@ export const checkIsOutZone = () => (dispatch, getState) => {
     }
   }
   //  save in 3Box
-  data = { point, startTime, lastCheck };
+  data = { profile, point, startTime, lastCheck };
   data = JSON.stringify(data);
   dispatch(setPublicSpace(data));
 
