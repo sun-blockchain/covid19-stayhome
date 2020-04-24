@@ -1,78 +1,26 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Modal, Button, Select } from 'antd';
-import Map from './Map';
-import useGeolocation from 'utils/useGeolocation';
+import Map from 'components/Map';
 import { useDispatch, useSelector } from 'react-redux';
 import * as actions from 'actions/index';
+import addMarkers from 'utils/addMarkers';
 
 import './SelectMap.css';
 
-function addMarkers(
-  map,
+function SelectMap({
+  yourLocaltion,
   showMarkers,
   setShowMarkers,
   markerIndex,
   setMarkerIndex,
-  markerNumber,
-  setMarkerNumber,
-  yorLocation
-) {
-  showMarkers.forEach((showMarker) => {
-    if (showMarker.lat && showMarker.lng) {
-      const marker = new window.google.maps.Marker({
-        map,
-        position: { lat: showMarker.lat, lng: showMarker.lng },
-        label: `${showMarker.index}`
-      });
-
-      // if wanna click in maker
-      marker.addListener(`click`, () => {
-        console.log(marker.getPosition().lat(), marker.getPosition().lng());
-      });
-    }
-  });
-
-  new window.google.maps.Marker({
-    map,
-    position: { lat: yorLocation.lat, lng: yorLocation.lng },
-    label: `You`
-  });
-
-  map.addListener(`click`, (mapsMouseEvent) => {
-    if (showMarkers.length < 4) {
-      setShowMarkers((showMarkers) => [
-        ...showMarkers,
-        { lat: mapsMouseEvent.latLng.lat(), lng: mapsMouseEvent.latLng.lng(), index: markerNumber }
-      ]);
-      setMarkerIndex((markerIndex) => [...markerIndex, markerNumber]);
-      setMarkerNumber(markerNumber + 1);
-    }
-  });
-}
-
-function SelectMap() {
+  geolocation,
+  setLoad
+}) {
   const threebox = useSelector((state) => state.threebox);
   const dispatch = useDispatch();
-  // get your Geolocation
-  const geolocation = useGeolocation({
-    enableHighAccuracy: true,
-    maximumAge: 15000,
-    timeout: 12000
-  });
 
   const [visible, setVisible] = useState(false);
-  const [yourLocaltion, setYourLocaltion] = useState(null);
-  const [showMarkers, setShowMarkers] = useState([]);
-  const [markerIndex, setMarkerIndex] = useState([]);
   const [markerNumber, setMarkerNumber] = useState(1);
-
-  useEffect(() => {
-    if (geolocation.latitude && geolocation.longitude) {
-      setYourLocaltion({ lat: geolocation.latitude, lng: geolocation.longitude });
-      dispatch(actions.setUserLocation({ lat: geolocation.latitude, lng: geolocation.longitude }));
-    }
-    if (threebox.zone) setShowMarkers(threebox.zone);
-  }, [geolocation, threebox.zone, dispatch]);
 
   const removeMarker = (value) => {
     // remove in selector
@@ -88,6 +36,13 @@ function SelectMap() {
     setVisible(false);
   };
 
+  const onReset = () => {
+    // reset zone if user not save
+    setLoad(true);
+
+    setVisible(false);
+  };
+
   return (
     <div>
       <Button type='primary' onClick={() => setVisible(true)}>
@@ -98,7 +53,7 @@ function SelectMap() {
         title='Basic Modal'
         visible={visible}
         onOk={() => submitZone()}
-        onCancel={() => setVisible(false)}
+        onCancel={() => onReset()}
       >
         {/* if geolocation error by your not allow */}
         {!geolocation.error ? (
