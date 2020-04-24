@@ -9,7 +9,8 @@ export default function Map({
   setMarkerIndex,
   markerNumber,
   setMarkerNumber,
-  yourLocaltion
+  yourLocaltion,
+  isShowOnly
 }) {
   const ref = useRef();
   const [map, setMap] = useState();
@@ -37,8 +38,14 @@ export default function Map({
       setMarkerIndex,
       markerNumber,
       setMarkerNumber,
-      yourLocaltion
+      yourLocaltion,
+      isShowOnly
     );
 
-  return <div style={{ height: `60vh`, margin: `1em 0`, borderRadius: `0.5em` }} {...{ ref }} />;
+  return (
+    <div
+      style={{ minHeight: `60vh`, height: `100%`, margin: `1em 0`, borderRadius: `0.5em` }}
+      {...{ ref }}
+    />
+  );
 }

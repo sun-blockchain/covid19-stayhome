@@ -102,7 +102,7 @@ export const getPublicSpace = () => async (dispatch, getState) => {
 
   var startTime, point, lastCheck;
   // If this is your first use
-  if (publicData === undefined || !publicData) {
+  if (!publicData) {
     startTime = new Date();
     var month = startTime.getMonth() + 1;
     var day = startTime.getDate();

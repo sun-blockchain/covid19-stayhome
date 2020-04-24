@@ -1,7 +1,7 @@
 import * as actions from 'actions/UI';
 
 const initialState = {
-  MenuKey: '1'
+  MenuKey: null
 };
 
 const UIReducer = (state = initialState, action) => {

@@ -1,15 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import EditProfile from '3box-profile-edit-react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { BounceLoader } from 'react-spinners';
 import './index.css';
 import { Button, Card } from 'antd';
 import ErrorAlert from 'components/Alert/errorAlert';
 import MyResult from './result.js';
+import * as UI from 'actions/UI';
 
 function Profile() {
   const [hideEdit, setHideEdit] = useState(true);
   const threebox = useSelector((state) => state.threebox);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(UI.updateMenuKey(1));
+  }, [dispatch]);
+
   if (threebox.error) {
     return (
       <div>
