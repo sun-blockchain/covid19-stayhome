@@ -46,8 +46,10 @@ function Profile() {
               <MyResult
                 name={threebox.threeBoxProfile.name}
                 src={
-                  'https://gateway.ipfs.io/ipfs/' +
-                  threebox.threeBoxProfile.image[0].contentUrl['/']
+                  threebox.threeBoxProfile.image
+                    ? 'https://gateway.ipfs.io/ipfs/' +
+                      threebox.threeBoxProfile.image[0].contentUrl['/']
+                    : 'https://medisetter.com/vi/medical/accr/1.png'
                 }
                 description={threebox.threeBoxProfile.description}
                 emoji={threebox.threeBoxProfile.emoji}

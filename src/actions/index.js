@@ -1,6 +1,6 @@
 import Box from '3box';
 import isOutZone from 'utils/isOutZone';
-
+import db from 'firebase/index';
 const getThreeBox = async (address) => {
   const profile = await Box.getProfile(address);
   return profile;
@@ -162,7 +162,11 @@ export const checkIsOutZone = () => (dispatch, getState) => {
   var point = state.threebox.point;
   var startTime = state.threebox.startTime;
   var lastCheck = state.threebox.lastCheck;
-
+  const account = state.threebox.account;
+  const name = state.threebox.threeBoxProfile.name;
+  const avatar = state.threeBoxProfile
+    ? 'https://gateway.ipfs.io/ipfs/' + state.threebox.threeBoxProfile.image[0].contentUrl['/']
+    : 'https://medisetter.com/vi/medical/accr/1.png';
   var date_diff_indays = (date1, date2) => {
     const dt1 = new Date(date1);
     const dt2 = new Date(date2);
@@ -200,11 +204,52 @@ export const checkIsOutZone = () => (dispatch, getState) => {
   data = { point, startTime, lastCheck };
   data = JSON.stringify(data);
   dispatch(setPublicSpace(data));
-
+  const result = {
+    name: name,
+    address: account,
+    score: point,
+    avatar: avatar
+  };
+  dispatch(setResult(result));
   dispatch({
     type: GET_PUBLIC_SPACE,
     startTime,
     point,
     lastCheck
+  });
+};
+export const SET_RESULT = 'SET_RESULT';
+export const setResult = (result) => async () => {
+  db.collection('leaderboard')
+    .doc(result.address)
+    .set({
+      name: result.name,
+      address: result.address,
+      score: result.score,
+      avatar: result.avatar
+    })
+    .then(function() {
+      console.log('Document successfully written!');
+    })
+    .catch(function(error) {
+      console.error('Error writing document: ', error);
+    });
+};
+
+export const GET_LEADERBOARD = 'GET_LEADERBOARD';
+export const getLeaderboard = () => async (dispatch) => {
+  const res = await db
+    .collection('leaderboard')
+    .orderBy('score', 'desc')
+    .limit(10)
+    .get();
+  let leaderboard = [];
+  for (const doc of res.docs) {
+    leaderboard.push(doc.data());
+  }
+
+  dispatch({
+    type: GET_LEADERBOARD,
+    leaderboard: leaderboard
   });
 };
