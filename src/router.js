@@ -5,7 +5,7 @@ import Home from './pages/Home';
 import LeaderBoard from './pages/Leaderboard';
 import Case from './pages/Case';
 import Profile from './pages/Profile';
-
+import OtherProfile from './pages/Profile/otherProfile';
 function Router() {
   return (
     <Switch>
@@ -13,6 +13,7 @@ function Router() {
       <Route path='/leaderboard' component={LeaderBoard} />
       <Route path='/corona-case' component={Case} />
       <Route path='/profile' component={Profile} />
+      <Route path='/:address' component={OtherProfile} />
     </Switch>
   );
 }

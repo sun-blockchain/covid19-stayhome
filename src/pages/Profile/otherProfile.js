@@ -6,16 +6,16 @@ import './index.css';
 import { Button, Card } from 'antd';
 import ErrorAlert from 'components/Alert/errorAlert';
 import MyResult from './result.js';
-import * as UI from 'actions/UI';
+import * as action from 'actions/index';
 
-function Profile() {
+function OtherProfile(props) {
   const [hideEdit, setHideEdit] = useState(true);
   const threebox = useSelector((state) => state.threebox);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(UI.updateMenuKey(1));
-  }, [dispatch]);
+    dispatch(action.getProfile(props.match.params.address));
+  }, [dispatch, props.match.params.address]);
 
   if (threebox.error) {
     return (
@@ -29,7 +29,7 @@ function Profile() {
       </div>
     );
   }
-  if (!threebox.space) {
+  if (!threebox.otherSpace) {
     return (
       <div style={{ width: '60px', margin: 'auto' }}>
         <BounceLoader color={'blue'} />
@@ -44,26 +44,15 @@ function Profile() {
           <div className='card'>
             <Card>
               <MyResult
-                name={threebox.threeBoxProfile.name}
+                name={threebox.otherSpace.name}
                 src={
-                  threebox.threeBoxProfile.image
-                    ? 'https://gateway.ipfs.io/ipfs/' +
-                      threebox.threeBoxProfile.image[0].contentUrl['/']
+                  threebox.otherSpace.avatar
+                    ? threebox.otherSpace.avatar
                     : 'https://medisetter.com/vi/medical/accr/1.png'
                 }
-                description={threebox.threeBoxProfile.description}
-                emoji={threebox.threeBoxProfile.emoji}
-                address={threebox.account}
-                point={threebox.point}
+                address={props.match.params.address}
+                point={threebox.otherSpace.point}
               />
-              <Button
-                className=' mt-3'
-                shape='round'
-                type='primary'
-                onClick={() => setHideEdit(false)}
-              >
-                Edit
-              </Button>
             </Card>
           </div>
         )}
@@ -79,7 +68,7 @@ function Profile() {
               box={threebox.box}
               space={threebox.space}
               currentUserAddr={threebox.account}
-              currentUser3BoxProfile={threebox.threeBoxProfile}
+              currentUser3BoxProfile={threebox.otherProfile}
               redirectFn={() => setHideEdit(true)}
             />
           </div>
@@ -89,4 +78,4 @@ function Profile() {
   );
 }
 
-export default Profile;
+export default OtherProfile;
