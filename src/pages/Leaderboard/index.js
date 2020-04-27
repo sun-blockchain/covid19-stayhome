@@ -55,7 +55,7 @@ function LeaderBoard() {
         </div>
       </div>
 
-      <div className='col'>
+      <div className='col' style={{ padding: '0px' }}>
         <Card className='site-layout-board ' title='Leader board' bordered={false}>
           <ul className='c-list'>
             <li className='c-list_item'>
