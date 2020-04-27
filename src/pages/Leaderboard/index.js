@@ -12,36 +12,11 @@ function LeaderBoard() {
   const threebox = useSelector((state) => state.threebox);
 
   useEffect(() => {
+    dispatch(actions.getLeaderboard());
     dispatch(UI.updateMenuKey(2));
     if (threebox.space) dispatch(actions.getAllPublicSpace());
   }, [dispatch, threebox.space]);
 
-  const data = [
-    {
-      rank: 1,
-      id: '123-123',
-      avatar:
-        'https://www.formula1.com/content/dam/fom-website/drivers/L/LEWHAM01_Lewis_Hamilton/lewham01.png.transform/2col-retina/image.png',
-      name: 'Nguyen Van A',
-      result: '80'
-    },
-    {
-      rank: 2,
-      id: '123-123',
-      avatar:
-        'https://www.formula1.com/content/dam/fom-website/drivers/L/LEWHAM01_Lewis_Hamilton/lewham01.png.transform/2col-retina/image.png',
-      name: 'Nguyen Van A',
-      result: '70'
-    },
-    {
-      rank: 3,
-      id: '123-123',
-      avatar:
-        'https://www.formula1.com/content/dam/fom-website/drivers/L/LEWHAM01_Lewis_Hamilton/lewham01.png.transform/2col-retina/image.png',
-      name: 'Nguyen Van A',
-      result: '60'
-    }
-  ];
   if (threebox.error) {
     return (
       <div>
@@ -54,7 +29,7 @@ function LeaderBoard() {
       </div>
     );
   }
-  if (!threebox.space) {
+  if (!threebox.space || !threebox.leaderboard) {
     return (
       <div style={{ width: '60px', margin: 'auto' }}>
         <BounceLoader color={'blue'} />
@@ -68,7 +43,10 @@ function LeaderBoard() {
           <MyResult
             name={threebox.threeBoxProfile.name}
             src={
-              'https://gateway.ipfs.io/ipfs/' + threebox.threeBoxProfile.image[0].contentUrl['/']
+              threebox.threeBoxProfile.image
+                ? 'https://gateway.ipfs.io/ipfs/' +
+                  threebox.threeBoxProfile.image[0].contentUrl['/']
+                : 'https://medisetter.com/vi/medical/accr/1.png'
             }
             description={threebox.threeBoxProfile.description}
             emoji={threebox.threeBoxProfile.emoji}
@@ -87,34 +65,34 @@ function LeaderBoard() {
                 <div className='u-text--right u-text--small u-text--medium'>Result</div>
               </div>
             </li>
-            {data.map((element, key) => (
+            {threebox.leaderboard.map((element, key) => (
               <li className='c-list_item' key={key}>
                 <div className='c-list_grid'>
                   <div
                     className={
-                      element.rank === 1
+                      key + 1 === 1
                         ? 'c-flag c-place u-bg--transparent u-text--dark u-bg--yellow'
                         : 'c-flag c-place u-bg--transparent u-text--dark u-bg--teal'
                     }
                   >
-                    {element.rank}
+                    {key + 1}
                   </div>
                   <div className='c-media'>
                     <img className='c-avatar c-media_img' src={element.avatar} alt='avatar' />
                     <div className='c-media_content'>
                       <div className='c-media_title'>{element.name}</div>
-                      <div className='c-media_link u-text--small id'>{element.id}</div>
+                      <div className='c-media_link u-text--small id'>{element.address}</div>
                     </div>
                   </div>
                   <div
                     className={
-                      element.rank === 1
+                      key + 1 === 1
                         ? 'u-text--right c-kudos u-text--yellow'
                         : 'u-text--right c-kudos u-text--teal'
                     }
                   >
                     <div>
-                      <strong>{element.result} % </strong>
+                      <strong>{element.score} </strong>
                     </div>
                   </div>
                 </div>

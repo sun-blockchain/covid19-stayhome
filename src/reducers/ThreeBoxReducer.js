@@ -23,14 +23,12 @@ const ThreeBoxReducer = (state = initialState, action) => {
         space: action.space,
         account: action.account,
         threeBoxProfile: action.threeBoxProfile,
-        leaderboard: action.leaderboard,
         error: action.error
       };
     case actions.THREE_BOX_NOT_CONNECT:
       return {
         ...state,
-        error: action.error,
-        leaderboard: action.leaderboard
+        error: action.error
       };
     case actions.GET_PRIVATE_SPACE:
       return {
@@ -48,6 +46,11 @@ const ThreeBoxReducer = (state = initialState, action) => {
       return {
         ...state,
         userLocation: action.userLocation
+      };
+    case actions.GET_LEADERBOARD:
+      return {
+        ...state,
+        leaderboard: action.leaderboard
       };
     default:
       return state;
