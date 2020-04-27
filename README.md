@@ -1,5 +1,7 @@
-<h1 align="center">Covid 19 Stay Home 👋</h1>
+<h1  align="center">Covid 19 Stay Home 👋</h1>
+
 <p>
+
 </p>
 
 > MetaCartel - Dragon Quest : Best 3Box Integration
@@ -16,28 +18,51 @@ Probably the most popular coronavirus-related hashtag on the internet right now,
 
 ## Use Case
 
-- Base on GPS (user allow checking) to determine user's home localtion. User will set 4 points arround our home. If user go out 4 points, user would be counted out.
+- Base on GPS (user allow checking) to determine user's home localtion. User will set 4 points arround our home. If user go out 4 points, user would be counted out. Before, user need to allow browser know location.
+
 - User can update number of cases corona in the world
+
 - System has a leaderboard to rank users have longest days at home.
+
 - User can tweet to share achievements.
 
-![Screenshot from 2020-04-22 15-22-53](https://user-images.githubusercontent.com/53574829/79958493-2dc03000-84ad-11ea-8987-176441ea4a62.png)
+  ![Screenshot from 2020-04-27 13-36-47](https://user-images.githubusercontent.com/53574829/80341226-3be6c580-888c-11ea-9518-4f3bbacc1aad.png)
+
+![Screenshot from 2020-04-27 13-38-27](https://user-images.githubusercontent.com/53574829/80341313-69337380-888c-11ea-8b29-8ed3825c1dab.png)
+
+![Screenshot from 2020-04-27 13-39-11](https://user-images.githubusercontent.com/53574829/80341367-7fd9ca80-888c-11ea-9638-411ea7f4e288.png)
 
 ![Screenshot from 2020-04-22 15-23-34](https://user-images.githubusercontent.com/53574829/79958573-44ff1d80-84ad-11ea-8b4f-6588dfe7856b.png)
 
 ![Screenshot from 2020-04-22 15-24-13](https://user-images.githubusercontent.com/53574829/79958619-58aa8400-84ad-11ea-8280-3951e1872bad.png)
 
+![image_2020_4_27](https://user-images.githubusercontent.com/53574829/80341452-af88d280-888c-11ea-8f3c-572b066aef60.png)
+
 ## Technology
 
 - Front-end: [React](https://reactjs.org/), [Redux](https://redux.js.org) and [Ant Desgin](https://ant.design/)
+
 - Storage: [3box.js](https://docs.3box.io/build/web-apps), [Indentity Wallet SDK](https://docs.3box.io/build/wallets)
 
 ## Run
 
 ```bash
+
 yarn
+
 yarn start
+
 ```
+
+User need to wait for seconds when app connect to threebox.
+
+`Connecting`
+
+![Screenshot from 2020-04-27 13-46-31](https://user-images.githubusercontent.com/53574829/80341939-87e63a00-888d-11ea-8d3c-aeba866209c6.png)
+
+`Connected`
+
+![Screenshot from 2020-04-27 13-47-21](https://user-images.githubusercontent.com/53574829/80342017-a6e4cc00-888d-11ea-9560-09c8de0e7f29.png)
 
 ## Author
 
