@@ -26,7 +26,7 @@ function Home() {
     timeout: 12000
   });
 
-  let text = `I haved stayed home at ${threebox.point} days
+  let text = `I haved stayed at home for ${threebox.point} days
 ${process.env.REACT_APP_HOME_URL}
 #StayHome`;
 
