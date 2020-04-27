@@ -48,15 +48,9 @@ function SelectMap({
       <Button type='primary' onClick={() => setVisible(true)}>
         Note your position
       </Button>
-      <p>{threebox.location}</p>
-      <Modal
-        title='Basic Modal'
-        visible={visible}
-        onOk={() => submitZone()}
-        onCancel={() => onReset()}
-      >
+      <Modal title='Zone' visible={visible} onOk={() => submitZone()} onCancel={() => onReset()}>
         {/* if geolocation error by your not allow */}
-        {!geolocation.error ? (
+        {!geolocation.error && typeof geolocation.latitude === 'number' ? (
           <div>
             <p>You must select 4 point around you</p>
             <Map

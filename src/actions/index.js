@@ -164,7 +164,7 @@ export const checkIsOutZone = () => (dispatch, getState) => {
   var lastCheck = state.threebox.lastCheck;
   const account = state.threebox.account;
   const name = state.threebox.threeBoxProfile.name;
-  const avatar = state.threeBoxProfile
+  const avatar = state.threebox.threeBoxProfile
     ? 'https://gateway.ipfs.io/ipfs/' + state.threebox.threeBoxProfile.image[0].contentUrl['/']
     : 'https://medisetter.com/vi/medical/accr/1.png';
   var date_diff_indays = (date1, date2) => {
@@ -185,12 +185,11 @@ export const checkIsOutZone = () => (dispatch, getState) => {
   var year = currentStartTime.getFullYear();
   currentStartTime = month + '-' + day + '-' + year;
 
-  lastCheck = currentStartTime;
-
   if (isOutZone(zone, userLocation)) {
     // if go out reset point
     point = 0;
     startTime = currentStartTime;
+    lastCheck = currentStartTime;
   } else {
     //if not go out
     if (date_diff_indays(lastCheck, currentStartTime) <= 1) {
@@ -198,6 +197,7 @@ export const checkIsOutZone = () => (dispatch, getState) => {
     } else {
       point = 0;
       startTime = currentStartTime;
+      lastCheck = currentStartTime;
     }
   }
   //  save in 3Box

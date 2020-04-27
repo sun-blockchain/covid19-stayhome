@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, initialState } from 'react';
 
 export default function Map({
   options,
@@ -13,7 +13,7 @@ export default function Map({
   isShowOnly
 }) {
   const ref = useRef();
-  const [map, setMap] = useState();
+  const [map, setMap] = useState(initialState);
 
   useEffect(() => {
     const onLoad = () => {
