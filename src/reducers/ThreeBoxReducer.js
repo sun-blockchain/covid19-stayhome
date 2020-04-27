@@ -11,7 +11,10 @@ const initialState = {
   zone: null,
   userLocation: null,
   startTime: null,
-  lastCheck: null
+  lastCheck: null,
+  otherProfile: null,
+  data: null,
+  otherSpace: null
 };
 
 const ThreeBoxReducer = (state = initialState, action) => {
@@ -51,6 +54,13 @@ const ThreeBoxReducer = (state = initialState, action) => {
       return {
         ...state,
         leaderboard: action.leaderboard
+      };
+    case actions.GET_PROFILE:
+      return {
+        ...state,
+        otherProfile: action.otherProfile,
+        data: action.data,
+        otherSpace: action.otherSpace
       };
     default:
       return state;

@@ -27,8 +27,8 @@ function Home() {
   });
 
   let text = `I haved stayed at home for ${threebox.point} days
-${process.env.REACT_APP_HOME_URL}
-#StayHome`;
+  ${process.env.REACT_APP_HOME_URL}/${threebox.account}
+  #StayHome`;
 
   text = encodeURIComponent(text);
 

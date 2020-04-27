@@ -13,6 +13,7 @@ function LeaderBoard() {
 
   useEffect(() => {
     dispatch(actions.getLeaderboard());
+
     dispatch(UI.updateMenuKey(2));
     if (threebox.space) dispatch(actions.getAllPublicSpace());
   }, [dispatch, threebox.space]);
@@ -51,6 +52,7 @@ function LeaderBoard() {
             description={threebox.threeBoxProfile.description}
             emoji={threebox.threeBoxProfile.emoji}
             address={threebox.account}
+            point={threebox.point}
           />
         </div>
       </div>
@@ -81,7 +83,11 @@ function LeaderBoard() {
                     <img className='c-avatar c-media_img' src={element.avatar} alt='avatar' />
                     <div className='c-media_content'>
                       <div className='c-media_title'>{element.name}</div>
-                      <div className='c-media_link u-text--small id'>{element.address}</div>
+                      <div className='c-media_link u-text--small id'>
+                        <a href={process.env.REACT_APP_HOME_URL + '/' + element.address}>
+                          {element.address}
+                        </a>
+                      </div>
                     </div>
                   </div>
                   <div

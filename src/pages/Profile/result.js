@@ -8,7 +8,8 @@ function MyResult(props) {
         {props.name} {props.emoji}
       </h3>
       <p>{props.address}</p>
-      <p>{props.description}</p>
+      <p>Description: {props.description}</p>
+      <h3>Point: {props.point}</h3>
     </div>
   );
 }

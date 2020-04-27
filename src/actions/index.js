@@ -10,6 +10,7 @@ export const THREE_BOX_CONNECT = 'THREE_BOX_CONNECT';
 export const THREE_BOX_NOT_CONNECT = 'THREE_BOX_NOT_CONNECT';
 export const WALLET_NOT_FOUND = 'WALLET_NOT_FOUND';
 export const ACCOUNT_NOT_FOUND = 'ACCOUNT_NOT_FOUND';
+export const GET_PROFILE = 'GET_PROFILE';
 export const getAddressFromMetaMask = () => async (dispatch) => {
   if (typeof window.ethereum === 'undefined') {
     dispatch({
@@ -51,6 +52,23 @@ export const getAddressFromMetaMask = () => async (dispatch) => {
       return;
     }
   } else {
+    dispatch({
+      type: ACCOUNT_NOT_FOUND,
+      error: 'Can not find your account'
+    });
+  }
+};
+
+export const getProfile = (address) => async (dispatch) => {
+  try {
+    const space = await Box.getSpace(address, 'stay-home');
+    var data = JSON.parse(Object.values(space)[0]);
+
+    dispatch({
+      type: GET_PROFILE,
+      otherSpace: data
+    });
+  } catch (e) {
     dispatch({
       type: ACCOUNT_NOT_FOUND,
       error: 'Can not find your account'
@@ -163,10 +181,13 @@ export const checkIsOutZone = () => (dispatch, getState) => {
   var startTime = state.threebox.startTime;
   var lastCheck = state.threebox.lastCheck;
   const account = state.threebox.account;
-  const name = state.threebox.threeBoxProfile.name;
-  const avatar = state.threebox.threeBoxProfile
-    ? 'https://gateway.ipfs.io/ipfs/' + state.threebox.threeBoxProfile.image[0].contentUrl['/']
-    : 'https://medisetter.com/vi/medical/accr/1.png';
+  if (state.threebox.threeBoxProfile) {
+    var name = state.threebox.threeBoxProfile.name ? state.threebox.threeBoxProfile.name : '';
+    var avatar = state.threebox.threeBoxProfile.image
+      ? 'https://gateway.ipfs.io/ipfs/' + state.threebox.threeBoxProfile.image[0].contentUrl['/']
+      : 'https://medisetter.com/vi/medical/accr/1.png';
+  }
+
   var date_diff_indays = (date1, date2) => {
     const dt1 = new Date(date1);
     const dt2 = new Date(date2);
@@ -201,7 +222,7 @@ export const checkIsOutZone = () => (dispatch, getState) => {
     }
   }
   //  save in 3Box
-  data = { point, startTime, lastCheck };
+  data = { point, startTime, lastCheck, name, avatar };
   data = JSON.stringify(data);
   dispatch(setPublicSpace(data));
   const result = {
