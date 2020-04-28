@@ -210,7 +210,6 @@ export const checkIsOutZone = () => (dispatch, getState) => {
     // if go out reset point
     point = 0;
     startTime = currentStartTime;
-    lastCheck = currentStartTime;
   } else {
     //if not go out
     if (date_diff_indays(lastCheck, currentStartTime) <= 1) {
@@ -218,9 +217,9 @@ export const checkIsOutZone = () => (dispatch, getState) => {
     } else {
       point = 0;
       startTime = currentStartTime;
-      lastCheck = currentStartTime;
     }
   }
+  lastCheck = currentStartTime;
   //  save in 3Box
   data = { point, startTime, lastCheck, name, avatar };
   data = JSON.stringify(data);
